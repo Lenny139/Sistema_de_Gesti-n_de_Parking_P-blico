@@ -1,0 +1,78 @@
+:root,
+[data-bs-theme='light'] {
+  --color-primary: #ffc107;
+  --color-secondary: #343a40;
+  --color-bg: #f8f9fa;
+  --color-surface: #ffffff;
+  --color-text: #212529;
+}
+
+[data-bs-theme='dark'] {
+  --color-primary: #ffc107;
+  --color-secondary: #343a40;
+  --color-bg: #1a1a1a;
+  --color-surface: #2d2d2d;
+  --color-text: #f0f0f0;
+}
+
+* {
+  transition: all 0.3s;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.title-oswald {
+  font-family: 'Oswald', sans-serif;
+}
+
+.navbar-parking {
+  background-color: var(--color-primary) !important;
+  color: var(--color-secondary);
+}
+
+.card-ticket {
+  border-left: 5px solid var(--color-primary);
+  background-color: var(--color-surface);
+}
+
+.badge-activo {
+  background-color: #198754;
+  color: #fff;
+}
+
+.badge-pagado {
+  background-color: #0d6efd;
+  color: #fff;
+}
+
+.badge-perdido {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.ocupacion-bar {
+  height: 1rem;
+  background-color: rgba(255, 193, 7, 0.2);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.ocupacion-bar > .fill {
+  height: 100%;
+  background-color: var(--color-primary);
+}
+
+.surface {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+}
