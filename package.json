@@ -5,8 +5,17 @@
   "main": "index.js",
   "scripts": {
     "build": "node -e \"require('fs').rmSync('build',{recursive:true,force:true})\" && tsc",
+    "build:all": "npm run build && npm run frontend:build",
     "start": "node ./build/index.js",
+    "start:prod": "npm run build:all && npm start",
     "dev": "tsx --watch ./src/index.ts",
+    "dev:all": "concurrently \"npm run dev\" \"npm run frontend:dev\"",
+    "frontend:dev": "vite --config frontend/vite.config.ts",
+    "frontend:build": "vite build --config frontend/vite.config.ts",
+    "frontend:preview": "vite preview --config frontend/vite.config.ts",
+    "frontend:test": "vitest run --config frontend/vitest.config.ts",
+    "frontend:test:watch": "vitest watch --config frontend/vitest.config.ts",
+    "frontend:test:ui": "vitest --ui --config frontend/vitest.config.ts",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
     "lint": "tsc --noEmit"
@@ -31,10 +40,16 @@
     "@types/supertest": "^6.0.3",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
+    "@vitest/coverage-v8": "^1.6.0",
+    "@vitest/ui": "^1.6.0",
+    "jsdom": "^24.1.0",
     "jest": "^29.7.0",
     "supertest": "^7.1.4",
     "ts-jest": "^29.2.5",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "concurrently": "^8.2.2",
+    "vite": "^5.4.0",
+    "vitest": "^1.6.0"
   }
 }
