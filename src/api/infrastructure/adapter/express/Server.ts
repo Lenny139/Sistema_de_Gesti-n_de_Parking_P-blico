@@ -1,4 +1,7 @@
 import express, { type Application, type Request, type Response, type NextFunction } from 'express'
+import { existsSync } from 'fs'
+import path from 'path'
+import { fileURLToPath } from 'url'
 import EnvironmentProviderInterface from '../../../domain/config/EnvironmentProviderInterface.js'
 import ApiRouter from '../../../domain/model/ApiRouter.js'
 import SwaggerRouter from '../swagger/SwaggerRouter.js'
@@ -16,6 +19,14 @@ export default class Server {
   }
 
   private configure(): void {
+    const __filename = fileURLToPath(import.meta.url)
+    const __dirname = path.dirname(__filename)
+    const frontendDist = path.join(__dirname, '..', '..', '..', '..', '..', 'frontend', 'dist')
+
+    if (existsSync(frontendDist)) {
+      this.app.use(express.static(frontendDist))
+    }
+
     this.app.use(express.json())
 
     this.app.use((req: Request, res: Response, next: NextFunction) => {
@@ -33,10 +44,30 @@ export default class Server {
   }
 
   private routes(): void {
+    const __filename = fileURLToPath(import.meta.url)
+    const __dirname = path.dirname(__filename)
+    const frontendDist = path.join(__dirname, '..', '..', '..', '..', '..', 'frontend', 'dist')
     const allRouters: ApiRouter[] = [new SwaggerRouter(), ...this.routers]
 
     allRouters.forEach((router) => {
       this.app.use('/', router.router)
+    })
+
+    this.app.use((req: Request, res: Response) => {
+      if (req.method !== 'GET') {
+        res.status(404).json({ message: 'Not found' })
+        return
+      }
+
+      if (!req.path.startsWith('/api') && !req.path.startsWith('/api-docs')) {
+        const indexHtml = path.join(frontendDist, 'index.html')
+        if (existsSync(indexHtml)) {
+          res.sendFile(indexHtml)
+          return
+        }
+      }
+
+      res.status(404).json({ message: 'Not found' })
     })
   }
 
