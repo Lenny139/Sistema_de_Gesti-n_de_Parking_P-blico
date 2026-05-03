@@ -12,103 +12,231 @@ export default class AdminView extends BaseView {
   render(): void {
     this.container.innerHTML = `
       <div id="admin-header"></div>
-      <div class="container-fluid py-3">
-        <ul class="nav nav-tabs mb-3" id="admin-tabs">
-          <li class="nav-item"><button class="nav-link active" data-admin-tab="dashboard">Dashboard</button></li>
-          <li class="nav-item"><button class="nav-link" data-admin-tab="reportes">${this.i18n.t('reporte_ingresos')}</button></li>
-          <li class="nav-item"><button class="nav-link" data-admin-tab="tarifas">${this.i18n.t('gestion_tarifas')}</button></li>
-          <li class="nav-item"><button class="nav-link" data-admin-tab="historial">Historial</button></li>
+      <div class="container-fluid py-3 px-3 px-md-4">
+        <ul class="nav nav-tabs mb-4" id="admin-tabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" data-admin-tab="dashboard" role="tab">
+              Dashboard
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" data-admin-tab="reportes" role="tab">
+              ${this.i18n.t('reporte_ingresos')}
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" data-admin-tab="tarifas" role="tab">
+              ${this.i18n.t('gestion_tarifas')}
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" data-admin-tab="historial" role="tab">
+              Historial
+            </button>
+          </li>
         </ul>
 
-        <section class="admin-tab" data-tab-panel="dashboard">
-          <div class="row g-3 mb-3">
-            <div class="col-md-3"><div class="card card-ticket surface"><div class="card-body"><div class="text-warning fw-bold">🅿 Tickets Hoy</div><div class="fs-4 fw-bold" id="stat-tickets">0</div></div></div></div>
-            <div class="col-md-3"><div class="card card-ticket surface"><div class="card-body"><div class="text-success fw-bold">$ Ingresos Hoy</div><div class="fs-4 fw-bold" id="stat-ingresos">$0</div></div></div></div>
-            <div class="col-md-3"><div class="card card-ticket surface"><div class="card-body"><div class="text-primary fw-bold">% ${this.i18n.t('ocupacion')}</div><div class="fs-4 fw-bold" id="stat-ocupacion">0%</div></div></div></div>
-            <div class="col-md-3"><div class="card card-ticket surface"><div class="card-body"><div class="text-warning fw-bold">⏱ Promedio Estadía</div><div class="fs-4 fw-bold" id="stat-estadia">0 min</div></div></div></div>
+        <section class="admin-tab fade-in" data-tab-panel="dashboard">
+          <div class="row g-3 mb-4">
+            <div class="col-6 col-lg-3">
+              <div class="stat-card surface position-relative">
+                <div class="stat-label">Tickets hoy</div>
+                <div class="stat-value" id="stat-tickets">—</div>
+                <div class="stat-icon">T</div>
+              </div>
+            </div>
+            <div class="col-6 col-lg-3">
+              <div class="stat-card surface position-relative" style="border-left-color: #198754;">
+                <div class="stat-label">Ingresos hoy</div>
+                <div class="stat-value" id="stat-ingresos">—</div>
+                <div class="stat-icon">$</div>
+              </div>
+            </div>
+            <div class="col-6 col-lg-3">
+              <div class="stat-card surface position-relative" style="border-left-color: #0d6efd;">
+                <div class="stat-label">${this.i18n.t('ocupacion')} actual</div>
+                <div class="stat-value" id="stat-ocupacion">—</div>
+                <div class="stat-icon">O</div>
+              </div>
+            </div>
+            <div class="col-6 col-lg-3">
+              <div class="stat-card surface position-relative" style="border-left-color: #6f42c1;">
+                <div class="stat-label">Promedio estadía</div>
+                <div class="stat-value" id="stat-estadia">—</div>
+                <div class="stat-icon">E</div>
+              </div>
+            </div>
           </div>
-          <div class="card card-ticket surface">
+
+          <div class="card-ticket surface">
             <div class="card-body">
-              <h5 class="title-oswald mb-3">Ingresos por hora</h5>
-              <div id="dashboard-bars" class="d-flex flex-column gap-2"></div>
+              <h5 class="card-title">Ingresos del día — por hora</h5>
+              <div id="dashboard-bars"></div>
             </div>
           </div>
         </section>
 
         <section class="admin-tab d-none" data-tab-panel="reportes">
-          <div class="card card-ticket surface mb-3">
-            <div class="card-body d-flex align-items-center gap-2 flex-wrap">
-              <label for="reporte-periodo" class="fw-semibold mb-0">Periodo</label>
-              <select id="reporte-periodo" class="form-select" style="max-width: 240px">
+          <div class="card-ticket surface mb-3">
+            <div class="card-body d-flex align-items-center gap-3 flex-wrap">
+              <label class="fw-bold title-oswald mb-0" style="font-size: 0.9rem;">Período:</label>
+              <select id="reporte-periodo" class="form-select" style="max-width: 220px;">
                 <option value="HOY">${this.i18n.t('hoy')}</option>
                 <option value="SEMANA">${this.i18n.t('esta_semana')}</option>
                 <option value="MES">${this.i18n.t('este_mes')}</option>
               </select>
+              <div class="ms-auto">
+                <div class="alert alert-warning mb-0 py-2 px-3 fw-bold d-inline-block" id="reporte-total" style="font-size: 0.95rem;">
+                  ${this.i18n.t('total_ingresos')}: $0
+                </div>
+              </div>
             </div>
           </div>
-          <div class="card card-ticket surface">
-            <div class="card-body">
+          <div class="card-ticket surface">
+            <div class="card-body p-0">
               <div class="table-responsive">
-                <table class="table table-sm">
-                  <thead><tr><th>Fecha</th><th>Ingresos</th><th>Movimientos</th><th>Promedio</th></tr></thead>
-                  <tbody id="reporte-body"></tbody>
+                <table class="table table-sm mb-0">
+                  <thead>
+                    <tr>
+                      <th>Fecha</th>
+                      <th>Ingresos</th>
+                      <th>Movimientos</th>
+                      <th>Promedio/ticket</th>
+                    </tr>
+                  </thead>
+                  <tbody id="reporte-body">
+                    <tr>
+                      <td colspan="4">
+                        <div class="empty-state">
+                          <div class="empty-icon">i</div>
+                          <p>Selecciona un período</p>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
-              <div class="alert alert-warning mb-0 mt-2 fw-bold" id="reporte-total">${this.i18n.t('total_ingresos')}: $0</div>
             </div>
           </div>
         </section>
 
         <section class="admin-tab d-none" data-tab-panel="tarifas">
-          <div id="tarifa-card" class="card card-ticket surface mb-3">
+          <div class="card-ticket surface mb-3">
             <div class="card-body">
-              <h5 class="title-oswald">Tarifa activa</h5>
-              <div id="tarifa-activa-detalle" class="small text-muted">Sin datos</div>
+              <h5 class="card-title">Tarifa Activa</h5>
+              <div id="tarifa-activa-detalle">
+                <div class="empty-state">
+                  <div class="empty-icon">i</div>
+                  <p>Cargando...</p>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="card card-ticket surface">
+          <div class="card-ticket surface">
             <div class="card-body">
-              <form id="tarifa-form" class="row g-2 align-items-end">
+              <h5 class="card-title">Editar tarifas</h5>
+              <div id="tarifa-form" class="row g-3">
                 <input id="tarifa-id" type="hidden" />
-                <div class="col-md-3"><label class="form-label">Precio/Hora</label><input id="tarifa-precioHora" type="number" min="0" class="form-control" required /></div>
-                <div class="col-md-3"><label class="form-label">Día completo</label><input id="tarifa-diaCompleto" type="number" min="0" class="form-control" required /></div>
-                <div class="col-md-3"><label class="form-label">Nocturna</label><input id="tarifa-nocturna" type="number" min="0" class="form-control" required /></div>
-                <div class="col-md-3"><label class="form-label">Ticket perdido</label><input id="tarifa-perdido" type="number" min="0" class="form-control" required /></div>
-                <div class="col-12">
-                  <button class="btn btn-warning fw-bold" type="submit">Guardar cambios</button>
+                <div class="col-md-6 col-lg-3">
+                  <label class="form-label fw-bold">Precio / Hora</label>
+                  <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input id="tarifa-precioHora" type="number" min="0" step="100" class="form-control" placeholder="5000" />
+                  </div>
                 </div>
-              </form>
+                <div class="col-md-6 col-lg-3">
+                  <label class="form-label fw-bold">Día completo</label>
+                  <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input id="tarifa-diaCompleto" type="number" min="0" step="1000" class="form-control" placeholder="40000" />
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                  <label class="form-label fw-bold">Tarifa nocturna</label>
+                  <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input id="tarifa-nocturna" type="number" min="0" step="100" class="form-control" placeholder="3000" />
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                  <label class="form-label fw-bold">Ticket perdido</label>
+                  <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input id="tarifa-perdido" type="number" min="0" step="1000" class="form-control" placeholder="50000" />
+                  </div>
+                </div>
+                <div class="col-12">
+                  <button id="tarifa-submit" class="btn btn-warning fw-bold px-4">
+                    Guardar cambios de tarifa
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
         <section class="admin-tab d-none" data-tab-panel="historial">
-          <div class="card card-ticket surface mb-3">
+          <div class="card-ticket surface mb-3">
             <div class="card-body">
               <div class="row g-2 align-items-end">
-                <div class="col-md-3"><label class="form-label">Fecha inicio</label><input id="hist-fechaInicio" type="date" class="form-control" /></div>
-                <div class="col-md-3"><label class="form-label">Fecha fin</label><input id="hist-fechaFin" type="date" class="form-control" /></div>
-                <div class="col-md-3"><label class="form-label">Tipo operación</label><select id="hist-tipo" class="form-select"><option value="">Todos</option><option value="ENTRADA">ENTRADA</option><option value="SALIDA">SALIDA</option><option value="TICKET_PERDIDO">TICKET_PERDIDO</option></select></div>
-                <div class="col-md-3"><button id="hist-aplicar" class="btn btn-dark w-100">Aplicar filtros</button></div>
+                <div class="col-md-3">
+                  <label class="form-label fw-bold">Fecha inicio</label>
+                  <input id="hist-fechaInicio" type="date" class="form-control" />
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label fw-bold">Fecha fin</label>
+                  <input id="hist-fechaFin" type="date" class="form-control" />
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label fw-bold">Tipo</label>
+                  <select id="hist-tipo" class="form-select">
+                    <option value="">Todos</option>
+                    <option value="ENTRADA">Entrada</option>
+                    <option value="SALIDA">Salida</option>
+                    <option value="TICKET_PERDIDO">Ticket perdido</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <button id="hist-aplicar" class="btn btn-dark w-100 fw-bold">
+                    Aplicar filtros
+                  </button>
+                </div>
               </div>
             </div>
           </div>
 
-          <div class="card card-ticket surface">
-            <div class="card-body">
+          <div class="card-ticket surface">
+            <div class="card-body p-0">
               <div class="table-responsive">
-                <table class="table table-sm">
-                  <thead><tr><th>Hora</th><th>${this.i18n.t('matricula')}</th><th>${this.i18n.t('tipo')}</th><th>Operador</th><th>${this.i18n.t('monto')}</th></tr></thead>
-                  <tbody id="historial-body"></tbody>
+                <table class="table table-sm mb-0">
+                  <thead>
+                    <tr>
+                      <th>Fecha/Hora</th>
+                      <th>${this.i18n.t('matricula')}</th>
+                      <th>Tipo</th>
+                      <th>Operador</th>
+                      <th>${this.i18n.t('monto')}</th>
+                    </tr>
+                  </thead>
+                  <tbody id="historial-body">
+                    <tr>
+                      <td colspan="5">
+                        <div class="empty-state">
+                          <div class="empty-icon">i</div>
+                          <p>Aplica filtros para ver el historial</p>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
-              <div class="d-flex justify-content-between align-items-center mt-2">
-                <div id="historial-total" class="fw-bold">Total: $0</div>
+              <div class="d-flex justify-content-between align-items-center px-3 py-2" style="border-top: 1px solid var(--color-border);">
+                <div id="historial-total" class="fw-bold text-warning title-oswald">Total: $0</div>
                 <div class="d-flex align-items-center gap-2">
-                  <button id="hist-prev" class="btn btn-outline-secondary btn-sm">Anterior</button>
-                  <span id="hist-page" class="small">1/1</span>
-                  <button id="hist-next" class="btn btn-outline-secondary btn-sm">Siguiente</button>
+                  <button id="hist-prev" class="btn btn-outline-secondary btn-sm">← Anterior</button>
+                  <span id="hist-page" class="small text-muted px-2">1 / 1</span>
+                  <button id="hist-next" class="btn btn-outline-secondary btn-sm">Siguiente →</button>
                 </div>
               </div>
             </div>
@@ -206,8 +334,33 @@ export default class AdminView extends BaseView {
 
     if (detalle) {
       detalle.innerHTML = `
-        <div><strong>${activa.nombre}</strong> (${activa.tipo})</div>
-        <div>${new Date(activa.actualizadaEn).toLocaleString()}</div>
+        <div class="row g-2 text-center">
+          <div class="col-3">
+            <div class="stat-card surface p-2">
+              <div class="stat-label">Por hora</div>
+              <div class="title-oswald fw-bold text-warning">${this.formatCop(activa.precioPorHora)}</div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="stat-card surface p-2">
+              <div class="stat-label">Día completo</div>
+              <div class="title-oswald fw-bold text-warning">${this.formatCop(activa.precioDiaCompleto)}</div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="stat-card surface p-2">
+              <div class="stat-label">Nocturna</div>
+              <div class="title-oswald fw-bold text-warning">${this.formatCop(activa.tarifaNocturna)}</div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="stat-card surface p-2">
+              <div class="stat-label">Ticket perdido</div>
+              <div class="title-oswald fw-bold text-warning">${this.formatCop(activa.tarifaTicketPerdido)}</div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-2 small text-muted">Actualizada: ${new Date(activa.actualizadaEn).toLocaleString()}</div>
       `
     }
 

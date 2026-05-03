@@ -22,14 +22,14 @@ export default class Header {
     container.innerHTML = `
       <nav class="navbar navbar-expand-lg navbar-parking px-3">
         <div class="d-flex align-items-center gap-2">
-          <span class="navbar-brand fw-bold title-oswald mb-0">🅿️ ${this.i18n.t('titulo')}</span>
+          <span class="navbar-brand fw-bold title-oswald mb-0">${this.i18n.t('titulo')}</span>
           <span class="badge bg-dark">${this.props.title ?? roleLabel}</span>
         </div>
         <div class="ms-auto d-flex align-items-center gap-2">
           <span class="small">${this.props.nombre} · ${this.props.puntoAcceso}</span>
           <select id="header-lang" class="form-select form-select-sm" aria-label="${this.i18n.t('idioma')}">
-            <option value="es" ${this.i18n.getLocale() === 'es' ? 'selected' : ''}>🇪🇸 ES</option>
-            <option value="en" ${this.i18n.getLocale() === 'en' ? 'selected' : ''}>🇺🇸 EN</option>
+            <option value="es" ${this.i18n.getLocale() === 'es' ? 'selected' : ''}>ES</option>
+            <option value="en" ${this.i18n.getLocale() === 'en' ? 'selected' : ''}>EN</option>
           </select>
           <button id="header-theme" class="btn btn-sm btn-dark">${isDark ? this.i18n.t('light_mode') : this.i18n.t('dark_mode')}</button>
           <button id="header-logout" class="btn btn-sm btn-outline-dark">${this.i18n.t('cerrar_sesion')}</button>
