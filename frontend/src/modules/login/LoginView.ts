@@ -9,7 +9,6 @@ export default class LoginView extends BaseView {
       <div class="login-bg d-flex align-items-center justify-content-center min-vh-100">
         <div class="w-100" style="max-width: 420px; padding: 1.5rem;">
           <div class="text-center mb-4 fade-in">
-            <div class="login-logo mb-3">P</div>
             <h1 class="title-oswald fw-bold text-white mb-1" style="font-size: 1.6rem; letter-spacing: 0.04em;">
               SISTEMA DE PARKING
             </h1>

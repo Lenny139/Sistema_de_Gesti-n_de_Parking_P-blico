@@ -10,7 +10,7 @@ export default class Header {
         container.innerHTML = `
       <nav class="navbar navbar-expand-lg navbar-parking px-3">
         <div class="d-flex align-items-center gap-2">
-          <span class="navbar-brand fw-bold title-oswald mb-0">🅿️ ${this.i18n.t('titulo')}</span>
+          <span class="navbar-brand fw-bold title-oswald mb-0">${this.i18n.t('titulo')}</span>
           <span class="badge bg-dark">${this.props.title ?? roleLabel}</span>
         </div>
         <div class="ms-auto d-flex align-items-center gap-2">

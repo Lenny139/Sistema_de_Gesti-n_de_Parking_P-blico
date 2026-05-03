@@ -1,7 +1,6 @@
 import express, { type Application, type Request, type Response, type NextFunction } from 'express'
 import { existsSync } from 'fs'
 import path from 'path'
-import { fileURLToPath } from 'url'
 import EnvironmentProviderInterface from '../../../domain/config/EnvironmentProviderInterface.js'
 import ApiRouter from '../../../domain/model/ApiRouter.js'
 import SwaggerRouter from '../swagger/SwaggerRouter.js'
@@ -19,9 +18,7 @@ export default class Server {
   }
 
   private configure(): void {
-    const __filename = fileURLToPath(import.meta.url)
-    const __dirname = path.dirname(__filename)
-    const frontendDist = path.join(__dirname, '..', '..', '..', '..', '..', 'frontend', 'dist')
+    const frontendDist = path.join(process.cwd(), 'frontend', 'dist')
 
     if (existsSync(frontendDist)) {
       this.app.use(express.static(frontendDist))
@@ -44,9 +41,7 @@ export default class Server {
   }
 
   private routes(): void {
-    const __filename = fileURLToPath(import.meta.url)
-    const __dirname = path.dirname(__filename)
-    const frontendDist = path.join(__dirname, '..', '..', '..', '..', '..', 'frontend', 'dist')
+    const frontendDist = path.join(process.cwd(), 'frontend', 'dist')
     const allRouters: ApiRouter[] = [new SwaggerRouter(), ...this.routers]
 
     allRouters.forEach((router) => {

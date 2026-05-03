@@ -12,7 +12,6 @@ export default class LoginView extends BaseView {
         <div class="row w-100 justify-content-center">
           <div class="col-12 col-md-6 col-lg-4">
             <div class="text-center mb-3">
-              <div class="display-4 fw-bold text-warning title-oswald">P</div>
               <h1 class="h3 title-oswald">Sistema de Parking</h1>
             </div>
             <div class="card shadow-sm surface">
