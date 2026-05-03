@@ -1,4 +1,5 @@
 import Toast from '../../components/Toast.js'
+import ConfirmModal from '../../components/ConfirmModal.js'
 import I18n from '../../core/i18n/I18n.js'
 import BaseController from '../../core/mvc/BaseController.js'
 import AdminModel, {
@@ -35,9 +36,8 @@ export default class AdminController extends BaseController<AdminModel, AdminVie
       })
     })
 
-    const tarifaForm = document.getElementById('tarifa-form') as HTMLFormElement | null
-    tarifaForm?.addEventListener('submit', (event) => {
-      event.preventDefault()
+    const tarifaSubmit = document.getElementById('tarifa-submit') as HTMLButtonElement | null
+    tarifaSubmit?.addEventListener('click', () => {
       this.submitTarifa().catch((error) => {
         Toast.error(error instanceof Error ? error.message : 'Error al guardar tarifa')
       })
@@ -164,7 +164,12 @@ export default class AdminController extends BaseController<AdminModel, AdminVie
       return
     }
 
-    const confirmed = window.confirm('¿Guardar cambios de tarifa?')
+    const confirmed = await ConfirmModal.show({
+      title: 'Guardar Tarifa',
+      body: '<p>¿Confirmar los cambios en la tarifa activa? Los nuevos cálculos usarán estos valores.</p>',
+      confirmLabel: 'Guardar cambios',
+      confirmClass: 'btn-warning',
+    })
     if (!confirmed) {
       return
     }

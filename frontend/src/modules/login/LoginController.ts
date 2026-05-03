@@ -23,19 +23,33 @@ export default class LoginController extends BaseController<LoginModel, LoginVie
   }
 
   private bindForm(): void {
-    const form = document.getElementById('login-form') as HTMLFormElement | null
-    if (!form) {
+    const submitButton = document.getElementById('login-submit') as HTMLButtonElement | null
+    const passwordInput = document.getElementById('password') as HTMLInputElement | null
+
+    if (!submitButton || !passwordInput) {
       return
     }
 
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault()
+    const triggerLogin = async (): Promise<void> => {
       this.view.showLoading(true)
 
       const username = (document.getElementById('username') as HTMLInputElement | null)?.value ?? ''
       const password = (document.getElementById('password') as HTMLInputElement | null)?.value ?? ''
 
       await this.model.login(username.trim(), password)
+    }
+
+    submitButton.addEventListener('click', () => {
+      void triggerLogin()
+    })
+
+    passwordInput.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter') {
+        return
+      }
+
+      event.preventDefault()
+      void triggerLogin()
     })
   }
 
