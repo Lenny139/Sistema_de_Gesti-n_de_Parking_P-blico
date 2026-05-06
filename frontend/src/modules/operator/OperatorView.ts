@@ -16,20 +16,19 @@ export default class OperatorView extends BaseView {
     this.container.innerHTML = `
       <nav class="navbar navbar-parking px-3">
         <div class="d-flex align-items-center gap-2">
-          <span class="navbar-brand fw-bold title-oswald">Parking</span>
-          <span class="badge bg-dark ms-1 title-oswald" id="ocupacion-badge" style="font-size: 0.8rem;">0%</span>
-          <span class="badge bg-secondary" style="font-size: 0.7rem; font-weight: 400;" id="poll-indicator">● Live</span>
+          <span class="navbar-brand fw-bold title-oswald">Sistema de parking</span>
+          <span class="badge-ocupacion" id="ocupacion-badge">0%</span>
+          <span class="badge bg-secondary" style="font-size: 0.7rem; font-weight: 400;" id="poll-indicator"></span>
         </div>
         <div class="ms-auto d-flex align-items-center gap-2">
-          <span class="small text-dark d-none d-md-inline" id="operador-nombre">${user?.username ?? 'Operador'}</span>
           <select id="operator-lang" class="form-select form-select-sm" style="width: auto; font-size: 0.8rem;">
             <option value="es" ${locale === 'es' ? 'selected' : ''}>ES</option>
             <option value="en" ${locale === 'en' ? 'selected' : ''}>EN</option>
           </select>
-          <button id="theme-toggle" class="btn btn-sm btn-dark">
+          <button id="theme-toggle" class="btn btn-sm btn-dark btn-nav">
             ${themeIcon}
           </button>
-          <button id="logout-btn" class="btn btn-sm btn-outline-dark fw-bold">
+          <button id="logout-btn" class="btn btn-sm btn-outline-dark fw-bold btn-nav">
             ${this.i18n.t('cerrar_sesion')}
           </button>
         </div>
@@ -50,10 +49,10 @@ export default class OperatorView extends BaseView {
                 />
                 <div class="d-flex gap-2">
                   <button id="btn-entrada" class="btn btn-warning fw-bold flex-fill">
-                    ↓ ${this.i18n.t('registrar_entrada')}
+                    ${this.i18n.t('registrar_entrada')}
                   </button>
                   <button id="btn-salida" class="btn btn-dark fw-bold flex-fill">
-                    ↑ ${this.i18n.t('registrar_salida')}
+                    ${this.i18n.t('registrar_salida')}
                   </button>
                 </div>
                 <div class="mt-2">

@@ -12,16 +12,18 @@ export default class OperatorView extends BaseView {
         const isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
         this.container.innerHTML = `
       <nav class="navbar navbar-expand-lg navbar-parking px-3">
-        <span class="navbar-brand fw-bold title-oswald">🅿️ Parking System</span>
-        <span class="badge bg-dark ms-2" id="ocupacion-badge">0%</span>
+        <div class="d-flex align-items-center gap-2">
+          <span class="navbar-brand fw-bold title-oswald">Sistema de parking</span>
+          <span class="badge-ocupacion" id="ocupacion-badge">0%</span>
+          <span class="badge bg-secondary" style="font-size: 0.7rem; font-weight: 400;" id="poll-indicator"></span>
+        </div>
         <div class="ms-auto d-flex align-items-center gap-2">
-          <span class="small">${user?.username ?? 'Operador'} · ${user?.username ?? 'Cabina'}</span>
-          <select id="operator-lang" class="form-select form-select-sm">
+          <select id="operator-lang" class="form-select form-select-sm" style="width: auto; font-size: 0.8rem;">
             <option value="es" ${this.i18n.getLocale() === 'es' ? 'selected' : ''}>ES</option>
             <option value="en" ${this.i18n.getLocale() === 'en' ? 'selected' : ''}>EN</option>
           </select>
-          <button id="theme-toggle" class="btn btn-sm btn-dark">${isDark ? this.i18n.t('light_mode') : this.i18n.t('dark_mode')}</button>
-          <button id="logout-btn" class="btn btn-sm btn-outline-dark">${this.i18n.t('cerrar_sesion')}</button>
+          <button id="theme-toggle" class="btn btn-sm btn-dark btn-nav">${isDark ? this.i18n.t('light_mode') : this.i18n.t('dark_mode')}</button>
+          <button id="logout-btn" class="btn btn-sm btn-outline-dark btn-nav">${this.i18n.t('cerrar_sesion')}</button>
         </div>
       </nav>
 

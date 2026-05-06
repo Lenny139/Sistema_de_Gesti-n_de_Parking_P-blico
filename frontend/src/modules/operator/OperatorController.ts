@@ -22,12 +22,6 @@ export default class OperatorController extends BaseController<OperatorModel, Op
 
   init(): void {
     this.view.render()
-    const user = AuthStore.getInstance().getUser()
-    const nombreEl = document.getElementById('operador-nombre')
-    if (nombreEl && user) {
-      nombreEl.textContent = `${user.username} · Cabina Principal`
-    }
-
     const input = document.getElementById('matricula-input') as HTMLInputElement | null
     if (input) {
       input.title = 'F1: Foco · F2: Entrada · F3: Salida · F5: Refrescar'

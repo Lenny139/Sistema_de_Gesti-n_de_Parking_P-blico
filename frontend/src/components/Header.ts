@@ -31,8 +31,8 @@ export default class Header {
             <option value="es" ${this.i18n.getLocale() === 'es' ? 'selected' : ''}>ES</option>
             <option value="en" ${this.i18n.getLocale() === 'en' ? 'selected' : ''}>EN</option>
           </select>
-          <button id="header-theme" class="btn btn-sm btn-dark">${isDark ? this.i18n.t('light_mode') : this.i18n.t('dark_mode')}</button>
-          <button id="header-logout" class="btn btn-sm btn-outline-dark">${this.i18n.t('cerrar_sesion')}</button>
+          <button id="header-theme" class="btn btn-sm btn-dark btn-nav">${isDark ? this.i18n.t('light_mode') : this.i18n.t('dark_mode')}</button>
+          <button id="header-logout" class="btn btn-sm btn-outline-dark btn-nav">${this.i18n.t('cerrar_sesion')}</button>
         </div>
       </nav>
     `
