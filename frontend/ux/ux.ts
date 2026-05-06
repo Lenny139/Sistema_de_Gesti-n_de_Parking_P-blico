@@ -6,206 +6,325 @@ const render = (): void => {
   }
 
   root.innerHTML = `
-    <section class="ux-lab">
-      <div class="ux-hero">
-        <div class="ux-hero-inner">
-          <div class="ux-hero-copy ux-stagger">
-            <span class="ux-kicker">Maqueta UX</span>
-            <h1>Parking Publico 360</h1>
-            <p class="ux-lead">
-              Propuesta estatica para visualizar el flujo completo del usuario,
-              los puntos de contacto y las decisiones clave del sistema.
-            </p>
-            <div class="ux-cta">
-              <a class="btn btn-dark" href="/">Volver al sistema</a>
-              <button class="btn btn-warning" type="button">Exportar PDF (mock)</button>
+    <section class="ux-shell">
+      <header class="ux-topbar">
+        <div class="ux-brand">
+          <span class="ux-badge">Diseno UX</span>
+          <h1>Parking Publico - Interfaz Operativa</h1>
+        </div>
+        <div class="ux-top-actions">
+          <button class="ux-btn" type="button">Exportar PDF (mock)</button>
+          <div class="ux-meta">
+            <span>Version: 1.0</span>
+            <span>Revision: Mayo 2026</span>
+            <span>Estado: Diseno estatico</span>
+          </div>
+        </div>
+      </header>
+
+      <nav class="ux-nav">
+        <a href="/ux/login.html">Login</a>
+        <a href="#operador">Operador</a>
+        <a href="#admin-dashboard">Admin / Dashboard</a>
+        <a href="#admin-reportes">Admin / Reportes</a>
+        <a href="#admin-tarifas">Admin / Tarifas</a>
+        <a href="#admin-historial">Admin / Historial</a>
+      </nav>
+
+      <section id="operador" class="ux-section">
+        <div class="ux-section-head">
+          <h2>Operador - Panel Principal</h2>
+          <span class="ux-chip">Vista operativa</span>
+        </div>
+        <div class="ux-grid-two">
+          <div class="ux-stack">
+            <div class="ux-card">
+              <h3>Registro rapido</h3>
+              <label>Matricula</label>
+              <input type="text" placeholder="ABC-123" />
+              <div class="ux-row-inline">
+                <button class="ux-btn ux-btn-primary" type="button">Registrar entrada</button>
+                <button class="ux-btn" type="button">Registrar salida</button>
+              </div>
+              <button class="ux-btn ux-btn-ghost" type="button">Buscar / Ticket perdido</button>
             </div>
-            <div class="ux-meta">
-              <span>Version: 0.9</span>
-              <span>Ultima revision: Mayo 2026</span>
-              <span>Estado: Concepto validado</span>
+            <div class="ux-card">
+              <h3>Resultado</h3>
+              <div class="ux-ticket">
+                <div class="ux-ticket-plate">ABC-123</div>
+                <div class="ux-ticket-row">
+                  <span>Hora entrada</span>
+                  <span>08:12</span>
+                </div>
+                <div class="ux-ticket-row">
+                  <span>Tiempo</span>
+                  <span>1h 14m</span>
+                </div>
+                <div class="ux-ticket-row">
+                  <span>Costo estimado</span>
+                  <span>$7.000</span>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="ux-hero-panel ux-stagger">
-            <div class="ux-pill">Operativo</div>
-            <div class="ux-meter">
-              <div>
-                <div class="ux-meter-label">Ocupacion actual</div>
-                <div class="ux-meter-value">78 / 120</div>
+
+          <div class="ux-stack">
+            <div class="ux-card">
+              <div class="ux-row-inline">
+                <div>
+                  <h3>Ocupacion en tiempo real</h3>
+                  <div class="ux-muted">78 / 120 plazas</div>
+                </div>
+                <span class="ux-badge">65%</span>
               </div>
-              <div class="ux-meter-ring">
-                <span>65%</span>
+              <div class="ux-bar">
+                <div class="ux-bar-fill" style="width: 65%"></div>
+              </div>
+              <div class="ux-row-inline ux-muted">
+                <span>42 libres</span>
+                <span>Ultima act: 10:42</span>
               </div>
             </div>
-            <div class="ux-hero-grid">
-              <div class="ux-hero-card">
-                <div class="ux-hero-title">Tiempo medio</div>
-                <div class="ux-hero-value">2h 18m</div>
+            <div class="ux-card">
+              <div class="ux-row-inline">
+                <h3>Ultimos movimientos</h3>
+                <span class="ux-chip">Hoy</span>
               </div>
-              <div class="ux-hero-card">
-                <div class="ux-hero-title">Tickets hoy</div>
-                <div class="ux-hero-value">164</div>
-              </div>
-              <div class="ux-hero-card">
-                <div class="ux-hero-title">Ingresos</div>
-                <div class="ux-hero-value">$2.34M</div>
-              </div>
-              <div class="ux-hero-card">
-                <div class="ux-hero-title">Alertas</div>
-                <div class="ux-hero-value">3 activas</div>
-              </div>
+              <table class="ux-table">
+                <thead>
+                  <tr>
+                    <th>Hora</th>
+                    <th>Matricula</th>
+                    <th>Tipo</th>
+                    <th>Monto</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>10:28</td>
+                    <td>JKL-992</td>
+                    <td>Salida</td>
+                    <td>$5.000</td>
+                  </tr>
+                  <tr>
+                    <td>10:02</td>
+                    <td>QWE-872</td>
+                    <td>Entrada</td>
+                    <td>--</td>
+                  </tr>
+                  <tr>
+                    <td>09:44</td>
+                    <td>ABC-123</td>
+                    <td>Salida</td>
+                    <td>$7.000</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div class="ux-content container-fluid">
-        <div class="ux-grid">
-          <div class="ux-card ux-flow">
-            <div class="ux-card-header">
-              <h2>Mapa de experiencia</h2>
-              <span class="ux-chip">Flujo critico</span>
-            </div>
-            <ol class="ux-steps">
-              <li>
-                <div class="ux-step-title">Ingreso y validacion</div>
-                <p>Lectura de placa, confirmacion visual y registro instantaneo.</p>
-                <div class="ux-tags">
-                  <span>0-30s</span>
-                  <span>Sensor + operador</span>
-                </div>
-              </li>
-              <li>
-                <div class="ux-step-title">Pago y salida</div>
-                <p>Calculo de tarifa automatico, opcion de pago rapido o manual.</p>
-                <div class="ux-tags">
-                  <span>1-3 min</span>
-                  <span>Tarifa dinamica</span>
-                </div>
-              </li>
-              <li>
-                <div class="ux-step-title">Post-servicio</div>
-                <p>Ticket digital, resumen de visita y encuesta de 1 toque.</p>
-                <div class="ux-tags">
-                  <span>Auto</span>
-                  <span>Feedback</span>
-                </div>
-              </li>
-            </ol>
+      <section id="admin-dashboard" class="ux-section">
+        <div class="ux-section-head">
+          <h2>Admin - Dashboard</h2>
+          <span class="ux-chip">Resumen</span>
+        </div>
+        <div class="ux-tabs">
+          <span class="ux-tab active">Dashboard</span>
+          <span class="ux-tab">Reportes</span>
+          <span class="ux-tab">Tarifas</span>
+          <span class="ux-tab">Historial</span>
+        </div>
+        <div class="ux-stat-grid">
+          <div class="ux-stat">
+            <span>Tickets hoy</span>
+            <strong>164</strong>
           </div>
-
-          <div class="ux-card ux-screens">
-            <div class="ux-card-header">
-              <h2>Pantallas clave</h2>
-              <span class="ux-chip">Alta fidelidad</span>
-            </div>
-            <div class="ux-screen-grid">
-              <article class="ux-screen">
-                <div class="ux-screen-top">
-                  <span class="ux-screen-badge">Operador</span>
-                  <span class="ux-screen-status">En vivo</span>
-                </div>
-                <h3>Panel de entrada</h3>
-                <p>Vista concentrada en matricula, estado y acciones rapidas.</p>
-                <div class="ux-screen-footer">
-                  <span>KPIs + acciones</span>
-                  <span>Actualiza cada 30s</span>
-                </div>
-              </article>
-              <article class="ux-screen">
-                <div class="ux-screen-top">
-                  <span class="ux-screen-badge">Admin</span>
-                  <span class="ux-screen-status">Reporte</span>
-                </div>
-                <h3>Analitica diaria</h3>
-                <p>Resumen visual con comparativo y alertas de ocupacion.</p>
-                <div class="ux-screen-footer">
-                  <span>Exportable</span>
-                  <span>Filtros inteligentes</span>
-                </div>
-              </article>
-              <article class="ux-screen">
-                <div class="ux-screen-top">
-                  <span class="ux-screen-badge">Caja</span>
-                  <span class="ux-screen-status">Pago</span>
-                </div>
-                <h3>Cobro express</h3>
-                <p>Tarifa sugerida, metodos favoritos y recibo inmediato.</p>
-                <div class="ux-screen-footer">
-                  <span>2 pasos</span>
-                  <span>Atajos de teclado</span>
-                </div>
-              </article>
-            </div>
+          <div class="ux-stat">
+            <span>Ingresos hoy</span>
+            <strong>$2.340.000</strong>
           </div>
+          <div class="ux-stat">
+            <span>Ocupacion actual</span>
+            <strong>65%</strong>
+          </div>
+          <div class="ux-stat">
+            <span>Promedio estadia</span>
+            <strong>2h 18m</strong>
+          </div>
+        </div>
+        <div class="ux-card">
+          <h3>Ingresos del dia por hora</h3>
+          <div class="ux-bars">
+            <div class="ux-bar-row"><span>08:00</span><div class="ux-bar"><div class="ux-bar-fill" style="width: 35%"></div></div><strong>$180k</strong></div>
+            <div class="ux-bar-row"><span>09:00</span><div class="ux-bar"><div class="ux-bar-fill" style="width: 60%"></div></div><strong>$320k</strong></div>
+            <div class="ux-bar-row"><span>10:00</span><div class="ux-bar"><div class="ux-bar-fill" style="width: 80%"></div></div><strong>$420k</strong></div>
+            <div class="ux-bar-row"><span>11:00</span><div class="ux-bar"><div class="ux-bar-fill" style="width: 50%"></div></div><strong>$260k</strong></div>
+          </div>
+        </div>
+      </section>
 
-          <div class="ux-card ux-kpis">
-            <div class="ux-card-header">
-              <h2>Indicadores UX</h2>
-              <span class="ux-chip">Meta 2026</span>
+      <section id="admin-reportes" class="ux-section">
+        <div class="ux-section-head">
+          <h2>Admin - Reportes</h2>
+          <span class="ux-chip">Tabla estatica</span>
+        </div>
+        <div class="ux-card">
+          <div class="ux-row-inline">
+            <div>
+              <label>Periodo</label>
+              <select>
+                <option>Hoy</option>
+                <option>Semana</option>
+                <option>Mes</option>
+              </select>
             </div>
-            <div class="ux-kpi-grid">
-              <div>
-                <div class="ux-kpi-label">Tiempo de atencion</div>
-                <div class="ux-kpi-value">-38%</div>
-              </div>
-              <div>
-                <div class="ux-kpi-label">Errores manuales</div>
-                <div class="ux-kpi-value">1.2%</div>
-              </div>
-              <div>
-                <div class="ux-kpi-label">Uso autogestion</div>
-                <div class="ux-kpi-value">54%</div>
-              </div>
-              <div>
-                <div class="ux-kpi-label">Satisfaccion</div>
-                <div class="ux-kpi-value">4.7/5</div>
-              </div>
-            </div>
-            <div class="ux-divider"></div>
-            <div class="ux-note">
-              Insight principal: se reduce el tiempo de salida al priorizar
-              acciones en una sola columna y botones de alto contraste.
+            <div class="ux-total">Total ingresos: $3.120.000</div>
+          </div>
+        </div>
+        <div class="ux-card">
+          <table class="ux-table">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Ingresos</th>
+                <th>Movimientos</th>
+                <th>Promedio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>06/05</td>
+                <td>$3.120.000</td>
+                <td>164</td>
+                <td>$19.000</td>
+              </tr>
+              <tr>
+                <td>05/05</td>
+                <td>$2.980.000</td>
+                <td>152</td>
+                <td>$19.600</td>
+              </tr>
+              <tr>
+                <td>04/05</td>
+                <td>$2.750.000</td>
+                <td>141</td>
+                <td>$19.500</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="admin-tarifas" class="ux-section">
+        <div class="ux-section-head">
+          <h2>Admin - Tarifas</h2>
+          <span class="ux-chip">Gestion</span>
+        </div>
+        <div class="ux-grid-two">
+          <div class="ux-card">
+            <h3>Tarifa activa</h3>
+            <div class="ux-list-box">
+              <div><strong>Precio / hora</strong><span>$5.000</span></div>
+              <div><strong>Dia completo</strong><span>$40.000</span></div>
+              <div><strong>Nocturna</strong><span>$3.000</span></div>
+              <div><strong>Ticket perdido</strong><span>$50.000</span></div>
             </div>
           </div>
-
-          <div class="ux-card ux-table">
-            <div class="ux-card-header">
-              <h2>Backlog inicial</h2>
-              <span class="ux-chip">Estatica</span>
-            </div>
-            <div class="ux-table-wrap">
-              <div class="ux-row">
-                <span>Registro rapido de placas</span>
-                <span>Alta</span>
-                <span>Semana 1</span>
-              </div>
-              <div class="ux-row">
-                <span>Panel ocupacion en vivo</span>
-                <span>Alta</span>
-                <span>Semana 1</span>
-              </div>
-              <div class="ux-row">
-                <span>Alertas de sobrecupo</span>
-                <span>Media</span>
-                <span>Semana 2</span>
-              </div>
-              <div class="ux-row">
-                <span>Encuesta 1 toque</span>
-                <span>Media</span>
-                <span>Semana 3</span>
-              </div>
-              <div class="ux-row">
-                <span>Resumen financiero diario</span>
-                <span>Alta</span>
-                <span>Semana 2</span>
-              </div>
+          <div class="ux-card">
+            <h3>Editar tarifas</h3>
+            <div class="ux-form">
+              <label>Precio / hora</label>
+              <input type="text" value="5000" />
+              <label>Dia completo</label>
+              <input type="text" value="40000" />
+              <label>Nocturna</label>
+              <input type="text" value="3000" />
+              <label>Ticket perdido</label>
+              <input type="text" value="50000" />
+              <button class="ux-btn ux-btn-primary" type="button">Guardar cambios</button>
             </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      <section id="admin-historial" class="ux-section">
+        <div class="ux-section-head">
+          <h2>Admin - Historial</h2>
+          <span class="ux-chip">Seguimiento</span>
+        </div>
+        <div class="ux-card">
+          <div class="ux-row-inline">
+            <div>
+              <label>Fecha inicio</label>
+              <input type="date" value="2026-05-01" />
+            </div>
+            <div>
+              <label>Fecha fin</label>
+              <input type="date" value="2026-05-06" />
+            </div>
+            <div>
+              <label>Tipo</label>
+              <select>
+                <option>Todos</option>
+                <option>Entrada</option>
+                <option>Salida</option>
+                <option>Ticket perdido</option>
+              </select>
+            </div>
+            <button class="ux-btn" type="button">Aplicar filtros</button>
+          </div>
+        </div>
+        <div class="ux-card">
+          <table class="ux-table">
+            <thead>
+              <tr>
+                <th>Fecha/Hora</th>
+                <th>Matricula</th>
+                <th>Tipo</th>
+                <th>Operador</th>
+                <th>Monto</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>06/05 10:28</td>
+                <td>JKL-992</td>
+                <td>Salida</td>
+                <td>op-01</td>
+                <td>$5.000</td>
+              </tr>
+              <tr>
+                <td>06/05 09:44</td>
+                <td>ABC-123</td>
+                <td>Salida</td>
+                <td>op-02</td>
+                <td>$7.000</td>
+              </tr>
+              <tr>
+                <td>06/05 09:12</td>
+                <td>QWE-872</td>
+                <td>Entrada</td>
+                <td>op-01</td>
+                <td>--</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="ux-row-inline ux-footer">
+            <span>Total: $12.000</span>
+            <div class="ux-pagination">
+              <button class="ux-btn ux-btn-ghost" type="button">Anterior</button>
+              <span>1 / 1</span>
+              <button class="ux-btn ux-btn-ghost" type="button">Siguiente</button>
+            </div>
+          </div>
+        </div>
+      </section>
     </section>
   `
 }
 
 render()
+
+export {}
